@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LinguaGreen Consulting – Sprachen. Karriere. Zukunft.</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>">
+<style>
+  :root {
+    --primary: #1e5631;
+    --primary-light: #2d7a46;
+    --accent: #f9ab00;
+    --bg: #f5f7f5;
+    --card: #ffffff;
+    --text: #1a1a1a;
+    --text-muted: #555;
+    --border: #d0d9d0;
+    --shadow: 0 2px 12px rgba(0,0,0,0.08);
+    --radius: 14px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Header & Logo */
+  header {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: white;
+    padding: 1.2rem 1rem;
+    box-shadow: var(--shadow);
+  }
+  .header-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .logo {
+    height: 56px;
+    width: auto;
+    border-radius: 8px;
+    background: white;
+    padding: 4px;
+    object-fit: contain;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  }
+  .brand-text h1 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+  }
+  .brand-text p {
+    font-size: 0.85rem;
+    opacity: 0.92;
+  }
+
+  /* Navigation */
+  nav {
+    background: white;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+  .nav-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    gap: 0.25rem;
+    padding: 0.6rem 1rem;
+    overflow-x: auto;
+  }
+  .nav-btn {
+    background: transparent;
+    border: none;
+    border-radius: 20px;
+    padding: 0.5rem 1.1rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+  .nav-btn:hover, .nav-btn.active {
+    background: var(--primary);
+    color: white;
+  }
+
+  /* Main & Pages */
+  main {
+    flex: 1;
+    max-width: 960px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+  .page { display: none; animation: fadeIn 0.35s ease; }
+  .page.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  .card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+    margin-bottom: 1.5rem;
+  }
+  .card h2 {
+    font-size: 1.25rem;
+    color: var(--primary);
+    margin-bottom: 0.75rem;
+  }
+  .card h3 {
+    font-size: 1.05rem;
+    color: var(--primary-light);
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  .card p {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+  }
+  .card ul {
+    margin-left: 1.2rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+  }
+  .card li { margin-bottom: 0.4rem; }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 0.85rem 1.4rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: opacity 0.2s, transform 0.1s;
+  }
+  .btn:hover { opacity: 0.9; transform: translateY(-1px); }
+  .btn:active { transform: translateY(0); }
+  .btn-accent { background: var(--accent); color: #1a1a1a; }
+  .btn-outline {
+    background: transparent;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+  }
+  .btn-outline:hover { background: var(--primary); color: white; opacity: 1; }
+
+  /* Alert / Info Box */
+  .info-box {
+    background: #e8f5e9;
+    border-left: 4px solid var(--primary-light);
+    border-radius: 8px;
+    padding: 1rem 1.2rem;
+    margin-bottom: 1.2rem;
+    font-size: 0.95rem;
+    color: #2e5c3a;
+  }
+  .info-box strong { display: block; margin-bottom: 0.3rem; }
+
+  .warning-box {
+    background: #fff8e1;
+    border-left: 4px solid var(--accent);
+    border-radius: 8px;
+    padding: 1rem 1.2rem;
+    margin-bottom: 1.2rem;
+    font-size: 0.95rem;
+    color: #5a4600;
+  }
+  .warning-box strong { display: block; margin-bottom: 0.3rem; }
+
+  .legal-box {
+    background: #f1f5f9;
+    border-left: 4px solid #64748b;
+    border-radius: 8px;
+    padding: 1rem 1.2rem;
+    margin: 1.2rem 0;
+    font-size: 0.9rem;
+    color: #334155;
+  }
+  .legal-box strong { display: block; margin-bottom: 0.3rem; color: #1e293b; }
+
+  /* External Link Card */
+  .external-link-card {
+    text-align: center;
+    padding: 2.5rem 2rem;
+  }
+  .external-link-card .icon { font-size: 3rem; margin-bottom: 1rem; }
+  .external-link-card h2 { margin-bottom: 0.5rem; }
+  .external-link-card .subtitle {
+    font-size: 1rem;
+    color: var(--text-muted);
+    max-width: 500px;
+    margin: 0 auto 1.5rem;
+  }
+  .exit-notice {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #fff3e0;
+    color: #6d4c00;
+    border: 1px solid #ffe0b2;
+    border-radius: 8px;
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+  }
+  .exit-notice .emoji { font-size: 1.1rem; }
+
+  /* Modal */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+    padding: 1rem;
+    backdrop-filter: blur(2px);
+  }
+  .modal-overlay.open { display: flex; }
+  .modal-content {
+    background: white;
+    border-radius: var(--radius);
+    max-width: 480px;
+    width: 100%;
+    padding: 1.5rem;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    animation: slideUp 0.3s ease;
+  }
+  @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  .modal-header h3 { font-size: 1.1rem; color: var(--primary); }
+  .close-btn {
+    background: none;
+    border: none;
+    font-size: 1.6rem;
+    cursor: pointer;
+    color: #888;
+    line-height: 1;
+  }
+  .close-btn:hover { color: #333; }
+  .modal-body { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 1.5rem; }
+  .modal-footer { display: flex; gap: 0.75rem; justify-content: flex-end; }
+
+  /* Footer */
+  footer {
+    background: #1a1a1a;
+    color: #aaa;
+    text-align: center;
+    padding: 1.5rem 1rem;
+    font-size: 0.85rem;
+  }
+  footer a { color: #ccc; text-decoration: underline; }
+  footer a:hover { color: white; }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .header-inner { justify-content: center; text-align: center; }
+    .brand-text h1 { font-size: 1.2rem; }
+    .logo { height: 48px; }
+    .external-link-card { padding: 1.5rem 1rem; }
+    .modal-footer { flex-direction: column; }
+    .modal-footer .btn { width: 100%; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <img src="FullLogo.jpg" alt="LinguaGreen Consulting Logo" class="logo">
+    <div class="brand-text">
+      <h1>LinguaGreen Consulting</h1>
+      <p>Sprachen · Karriere · Zukunft</p>
+    </div>
+  </div>
+</header>
+
+<!-- NAVIGATION -->
+<nav>
+  <div class="nav-inner">
+    <button class="nav-btn active" onclick="showPage('home')">🏠 Startseite</button>
+    <button class="nav-btn" onclick="showPage('jobs')">💼 Jobs & Karriere</button>
+    <button class="nav-btn" onclick="showPage('impressum')">📋 Impressum</button>
+  </div>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main>
+
+  <!-- HOME -->
+  <div class="page active" id="page-home">
+    <div class="card">
+      <h2>Willkommen bei LinguaGreen Consulting</h2>
+      <p>Wir begleiten Fachkräfte auf ihrem Weg in den deutschen Arbeitsmarkt. Von der ersten Sprachförderung bis zur erfolgreichen Integration – LinguaGreen Consulting ist Ihr Partner für eine berufliche Zukunft in Deutschland.</p>
+      <p>Unsere Kernleistungen umfassen:</p>
+      <ul>
+        <li>Berufsbezogenes Sprachcoaching (Deutsch & Fachsprachen)</li>
+        <li>Bewerbungsmanagement & Interview-Training</li>
+        <li>Arbeitsmarkt-Integration & Kulturelle Vorbereitung</li>
+        <li>Visa- & Anerkennungsbegleitung</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>🚀 Aktuelle Stellenangebote entdecken</h2>
+      <p>Finden Sie passende Jobs in Deutschland über unsere Kooperation mit Indeed – dem weltweit führenden Stellenportal.</p>
+      <div class="warning-box">
+        <strong>⚠️ Hinweis:</strong>
+        Sie verlassen beim Klick auf den folgenden Link die Webseite von LinguaGreen Consulting und werden zu Indeed Deutschland weitergeleitet. Wir haben keinen Einfluss auf die Inhalte und Datenschutzpraktiken der externen Seite.
+      </div>
+      <a href="#" class="btn btn-accent" onclick="openExitModal(event, 'https://de.indeed.com')">
+        🔍 Zu Indeed Deutschland
+      </a>
+      <span class="exit-notice" style="margin-left: 0.75rem;">
+        <span class="emoji">↗️</span> Öffnet in neuem Tab
+      </span>
+    </div>
+  </div>
+
+  <!-- JOBS & KARRIERE -->
+  <div class="page" id="page-jobs">
+    <div class="card external-link-card">
+      <div class="icon">💼</div>
+      <h2>Stellenangebote auf Indeed Deutschland</h2>
+      <p class="subtitle">
+        Durchsuchen Sie Tausende aktuelle Jobangebote in Deutschland. Klicken Sie auf den Button, um direkt zu Indeed weitergeleitet zu werden.
+      </p>
+
+      <div class="exit-notice" style="margin: 0 auto 1.5rem;">
+        <span class="emoji">🚪</span>
+        <span>Sie verlassen jetzt <strong>LinguaGreen Consulting</strong></span>
+      </div>
+
+      <div class="warning-box" style="text-align: left; max-width: 520px; margin: 0 auto 1.5rem;">
+        <strong>⚠️ Wichtiger Hinweis vor dem Verlassen unserer Seite:</strong>
+        Sie werden nun zu <strong>Indeed Deutschland</strong> (https://de.indeed.com) weitergeleitet. Dies ist eine externe Webseite, die nicht von LinguaGreen Consulting betrieben wird. Wir haben keinen Einfluss auf deren Inhalte, Datenschutzrichtlinien oder Geschäftsbedingungen. Bitte lesen Sie die dort geltenden Nutzungsbedingungen sorgfältig durch.
+      </div>
+
+      <a href="#" class="btn" onclick="openExitModal(event, 'https://de.indeed.com')">
+        🔍 Jetzt Jobs auf Indeed finden
+      </a>
+      <p style="margin-top: 1rem; font-size: 0.85rem; color: #888;">
+        Der Link öffnet sich in einem neuen Browser-Tab. Sie können jederzeit zu diesem Tab zurückkehren.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>Tipps für Ihre Jobsuche</h2>
+      <ul style="text-align: left;">
+        <li><strong>Stichwort präzise wählen:</strong> Nutzen Sie Ihren Berufstitel oder Fachbegriffe (z. B. „Pflegefachkraft“, „Softwareentwickler“).</li>
+        <li><strong>Standort nicht vergessen:</strong> Geben Sie Ihre bevorzugte Region oder Stadt an, um passende Ergebnisse zu erhalten.</li>
+        <li><strong>Filter nutzen:</strong> Indeed bietet Filter für Gehalt, Vertragsart und Veröffentlichungsdatum.</li>
+        <li><strong>Bewerbungsfrist beachten:</strong> Achten Sie auf das Datum der Stellenanzeige, um sich rechtzeitig zu bewerben.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- IMPRESSUM -->
+  <div class="page" id="page-impressum">
+    <div class="card">
+      <h2>Impressum</h2>
+      <p><strong>LinguaGreen Consulting</strong><br>
+      [Straße und Hausnummer]<br>
+      [PLZ Ort]<br>
+      Deutschland</p>
+
+      <p><strong>Vertreten durch:</strong><br>
+      [Geschäftsführer / Inhaber]</p>
+
+      <p><strong>Kontakt:</strong><br>
+      Telefon: [Telefonnummer]<br>
+      E-Mail: [E-Mail-Adresse]<br>
+      Webseite: www.linguagreen-consulting.de</p>
+
+      <p><strong>USt-IdNr.:</strong> [falls vorhanden]</p>
+
+      <h3>Haftung für Inhalte</h3>
+      <p>Die Inhalte unserer Seiten wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen. Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.</p>
+
+      <h3>Haftung für Links</h3>
+      <p>Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft. Rechtswidrige Inhalte waren zum Zeitpunkt der Verlinkung nicht erkennbar.</p>
+      <p>Eine permanente inhaltliche Kontrolle der verlinkten Seiten ist jedoch ohne konkrete Anhaltspunkte einer Rechtsverletzung nicht zumutbar. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Links umgehend entfernen.</p>
+    </div>
+
+    <div class="card">
+      <h2>Disclaimer für externe Links (Externe-Link-Hinweis)</h2>
+
+      <div class="legal-box">
+        <strong>🔗 Verweis auf Drittseiten</strong>
+        Auf der Webseite von LinguaGreen Consulting finden Sie verschiedene Verweise (Links) zu Webseiten Dritter, insbesondere zu <strong>Indeed Deutschland</strong> (https://de.indeed.com). Diese Links sind als Service für unsere Nutzer gedacht und stellen eine Empfehlung oder bequeme Weiterleitung dar.
+      </div>
+
+      <h3>1. Keine Einbindung & Kein Einfluss</h3>
+      <p>Wir binden fremde Inhalte <strong>nicht direkt in unser Webseitendesign ein</strong> (kein iframe, keine Embedded Widgets). Jeder Link zu Indeed oder anderen externen Anbietern öffnet sich in einem <strong>neuen Browser-Fenster bzw. -Tab</strong>. Wir haben auf den Inhalt, das Design, die Verfügbarkeit und die Datenschutzpraktiken der verlinkten Seiten <strong>keinen Einfluss</strong>.</p>
+
+      <h3>2. Keine Haftung für externe Inhalte</h3>
+      <p>LinguaGreen Consulting übernimmt <strong>keine Haftung</strong> für die Inhalte, die Richtigkeit, die Rechtmäßigkeit, die Vollständigkeit oder die Verfügbarkeit von Informationen auf den verlinkten externen Webseiten. Das Herunterladen von Dateien oder die Nutzung von Diensten auf verlinkten Seiten geschieht auf <strong>eigenes Risiko</strong> des Nutzers.</p>
+
+      <h3>3. Hinweis vor dem Verlassen der Seite</h3>
+      <p>Vor jedem Klick auf einen externen Link weisen wir unsere Nutzer deutlich darauf hin, dass sie die Webseite von LinguaGreen Consulting verlassen. Dies erfolgt durch:</p>
+      <ul>
+        <li>einen sichtbaren Hinweistext in der Nähe des Links („Sie verlassen jetzt LinguaGreen Consulting“),</li>
+        <li>ein Bestätigungsdialog-Fenster (Exit-Modal), das vor dem Öffnen der externen Seite erscheint,</li>
+        <li>das Öffnen des Links stets in einem neuen Tab (<code>target="_blank"</code>) mit dem zusätzlichen Sicherheitsattribut <code>rel="noopener noreferrer"</code>.</li>
+      </ul>
+
+      <h3>4. Datenschutz bei externen Links</h3>
+      <p>Beim Besuch externer Webseiten gelten die <strong>Datenschutzerklärungen des jeweiligen Anbieters</strong>. LinguaGreen Consulting erhebt, verarbeitet oder speichert keine Daten über Ihr Nutzungsverhalten auf verlinkten Drittseiten. Wir empfehlen Ihnen, die Datenschutzhinweise von Indeed Deutschland vor der Nutzung zu lesen.</p>
+
+      <h3>5. Entfernung von Links</h3>
+      <p>Sollten wir auf rechtswidrige Inhalte auf verlinkten Seiten aufmerksam gemacht werden, werden wir den entsprechenden Link unverzüglich aus unserem Angebot entfernen, sofern dies technisch und rechtlich möglich ist.</p>
+
+      <p style="margin-top:1.5rem; font-size:0.85rem; color:#888;">
+        <strong>Hinweis:</strong> Dieser Disclaimer wurde unter Berücksichtigung der Anforderungen des Telemediengesetzes (TMG) und der EU-Datenschutz-Grundverordnung (DSGVO) erstellt. Bitte ergänzen Sie die Platzhalter im oberen Impressum-Bereich mit Ihren tatsächlichen Unternehmensdaten.
+      </p>
+    </div>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <p>&copy; <span id="year"></span> LinguaGreen Consulting. Alle Rechte vorbehalten.</p>
+  <p style="margin-top:0.4rem;">
+    <a href="#" onclick="showPage('impressum'); return false;">Impressum</a> &nbsp;|&nbsp;
+    <a href="#" onclick="showPage('jobs'); return false;">Jobs auf Indeed</a>
+  </p>
+</footer>
+
+<!-- EXIT MODAL -->
+<div class="modal-overlay" id="exitModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>🚪 Sie verlassen LinguaGreen Consulting</h3>
+      <button class="close-btn" onclick="closeExitModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p>Sie sind dabei, unsere Webseite zu verlassen und zu <strong>Indeed Deutschland</strong> weitergeleitet zu werden.</p>
+      <p style="margin-top:0.5rem;"><strong>Bitte beachten Sie:</strong></p>
+      <ul style="margin-left:1.2rem; margin-top:0.4rem;">
+        <li>Indeed ist eine externe Webseite, die nicht von uns betrieben wird.</li>
+        <li>Wir haben keinen Einfluss auf deren Inhalte und Datenschutzrichtlinien.</li>
+        <li>Der Link öffnet sich in einem neuen Browser-Tab.</li>
+      </ul>
+      <p style="margin-top:0.75rem; font-size:0.9rem; color:#666;">
+        Möchten Sie dennoch fortfahren?
+      </p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeExitModal()">Abbrechen</button>
+      <button class="btn" onclick="confirmExternalLink()">Ja, zu Indeed weiter</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // --- Navigation ---
+  function showPage(pageId) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    const page = document.getElementById('page-' + pageId);
+    if (page) page.classList.add('active');
+    // Highlight nav button
+    const buttons = document.querySelectorAll('.nav-btn');
+    const map = { 'home': 0, 'jobs': 1, 'impressum': 2 };
+    if (map[pageId] !== undefined && buttons[map[pageId]]) {
+      buttons[map[pageId]].classList.add('active');
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // --- Exit Modal ---
+  let pendingUrl = '';
+
+  function openExitModal(event, url) {
+    event.preventDefault();
+    pendingUrl = url;
+    document.getElementById('exitModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeExitModal() {
+    document.getElementById('exitModal').classList.remove('open');
+    document.body.style.overflow = '';
+    pendingUrl = '';
+  }
+
+  function confirmExternalLink() {
+    if (pendingUrl) {
+      window.open(pendingUrl, '_blank', 'noopener,noreferrer');
+    }
+    closeExitModal();
+  }
+
+  // Close modal on backdrop click
+  document.getElementById('exitModal').addEventListener('click', function(e) {
+    if (e.target === this) closeExitModal();
+  });
+
+  // Close on Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeExitModal();
+  });
+
+  // --- Year ---
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
